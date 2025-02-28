@@ -1,21 +1,20 @@
 package net.trafficlunar.optionsprofiles.gui;
 
-import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.trafficlunar.optionsprofiles.profiles.Profiles;
 
 public class ProfilesScreen extends OptionsSubScreen {
-    private Screen optionsLastScreen;
+    private final Screen lastScreen;
     public ProfilesList profilesList;
 
-    public ProfilesScreen(Screen lastScreen, Screen optionsLastScreen) {
+    public ProfilesScreen(Screen lastScreen) {
         super(lastScreen, null, Component.translatable("gui.optionsprofiles.profiles-menu"));
-        this.optionsLastScreen = optionsLastScreen;
+        this.lastScreen = lastScreen;
     }
 
     protected void addOptions() {}
@@ -45,7 +44,7 @@ public class ProfilesScreen extends OptionsSubScreen {
     }
 
     public void onClose() {
-        this.minecraft.setScreen(new OptionsScreen(optionsLastScreen, this.minecraft.options));
+        this.minecraft.setScreen(lastScreen);
     }
 
     protected void repositionElements() {

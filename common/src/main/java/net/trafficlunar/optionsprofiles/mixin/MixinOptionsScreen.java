@@ -1,10 +1,10 @@
 package net.trafficlunar.optionsprofiles.mixin;
 
-import net.trafficlunar.optionsprofiles.gui.ProfilesScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.network.chat.Component;
+import net.trafficlunar.optionsprofiles.gui.ProfilesScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,7 +25,7 @@ public class MixinOptionsScreen extends Screen {
         this.addRenderableWidget(
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.profiles-menu"),
-                                (button) -> this.minecraft.setScreen(new ProfilesScreen(this, lastScreen)))
+                                (button) -> this.minecraft.setScreen(new ProfilesScreen(this)))
                         .width(75)
                         .pos(5, 5)
                         .build()

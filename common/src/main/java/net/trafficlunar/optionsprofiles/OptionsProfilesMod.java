@@ -1,5 +1,9 @@
 package net.trafficlunar.optionsprofiles;
 
+import dev.architectury.event.events.common.CommandRegistrationEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.commands.Commands;
+import net.trafficlunar.optionsprofiles.gui.ProfilesScreen;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,5 +30,15 @@ public class OptionsProfilesMod {
 
         // Update / add configuration for existing profiles
         Profiles.updateProfiles();
+
+        // Add /optionsprofiles command
+        CommandRegistrationEvent.EVENT.register(((dispatcher, buildContext, selection) -> dispatcher.register(
+                Commands
+                        .literal("optionsprofiles")
+                        .executes(context -> {
+                            Minecraft.getInstance().setScreen(new ProfilesScreen(null));
+                            return 1;
+                        })
+                    )));
     }
 }
