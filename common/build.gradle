@@ -22,6 +22,9 @@ dependencies {
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
+    // Architectury API
+    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+
     // Mod implementations
     modImplementation "maven.modrinth:sodium:mc1.21.4-0.6.3-fabric"             // Sodium
     modImplementation "maven.modrinth:sodium-extra:mc1.21.4-0.6.1+fabric"       // Sodium Extra

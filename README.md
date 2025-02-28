@@ -34,7 +34,7 @@ If you would like support for another mod, open an issue.
 - Where can I find the source code for older versions?
     > You can find them in the branches.
 - Dependencies?
-    > Versions 1.1 require Architectury API, however versions 1.2+ do not.
+    > Architectury API and Fabric API (if on Fabric)
 - For any other questions, create an issue or contact me at hello@trafficlunar.net
 
 ## Gallery
