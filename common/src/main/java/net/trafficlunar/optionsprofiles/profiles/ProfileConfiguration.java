@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles.profiles;
+package net.trafficlunar.optionsprofiles.profiles;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

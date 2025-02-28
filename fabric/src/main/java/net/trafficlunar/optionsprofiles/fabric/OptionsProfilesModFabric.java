@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles.fabric;
+package net.trafficlunar.optionsprofiles.fabric;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.fabricmc.api.ModInitializer;
 
 public class OptionsProfilesModFabric implements ModInitializer {

@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles.profiles.loaders;
+package net.trafficlunar.optionsprofiles.profiles.loaders;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.caffeinemc.mods.sodium.client.SodiumClientMod;

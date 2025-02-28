@@ -5,19 +5,19 @@
   "name": "Options Profiles",
   "description": "Load and save your options from in-game.",
   "authors": [
-    "AxolotlMaid"
+    "trafficlunar"
   ],
   "contact": {
-    "homepage": "https://github.com/AxolotlMaid/options-profiles",
-    "sources": "https://github.com/AxolotlMaid/options-profiles",
-    "issues": "https://github.com/AxolotlMaid/options-profiles/issues"
+    "homepage": "https://github.com/trafficlunar/options-profiles",
+    "sources": "https://github.com/trafficlunar/options-profiles",
+    "issues": "https://github.com/trafficlunar/options-profiles/issues"
   },
   "license": "GNU GPL 3.0",
   "icon": "assets/optionsprofiles/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.axolotlmaid.optionsprofiles.fabric.OptionsProfilesModFabric"
+      "net.trafficlunar.optionsprofiles.fabric.OptionsProfilesModFabric"
     ]
   },
   "mixins": [

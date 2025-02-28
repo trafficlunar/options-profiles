@@ -1,10 +1,10 @@
-package com.axolotlmaid.optionsprofiles.profiles;
+package net.trafficlunar.optionsprofiles.profiles;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
-import com.axolotlmaid.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
-import com.axolotlmaid.optionsprofiles.profiles.loaders.IrisLoader;
-import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumExtraLoader;
-import com.axolotlmaid.optionsprofiles.profiles.loaders.SodiumLoader;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
+import net.trafficlunar.optionsprofiles.profiles.loaders.IrisLoader;
+import net.trafficlunar.optionsprofiles.profiles.loaders.SodiumExtraLoader;
+import net.trafficlunar.optionsprofiles.profiles.loaders.SodiumLoader;
 import org.apache.commons.io.FileUtils;
 
 import java.io.IOException;

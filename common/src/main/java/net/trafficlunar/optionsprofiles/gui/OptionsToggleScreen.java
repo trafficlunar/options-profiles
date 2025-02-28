@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles.gui;
+package net.trafficlunar.optionsprofiles.gui;
 
-import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
+import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.LinearLayout;

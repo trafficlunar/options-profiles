@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles;
+package net.trafficlunar.optionsprofiles;
 
-import com.axolotlmaid.optionsprofiles.profiles.Profiles;
+import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

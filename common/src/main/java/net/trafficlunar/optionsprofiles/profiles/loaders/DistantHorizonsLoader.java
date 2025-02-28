@@ -1,4 +1,4 @@
-package com.axolotlmaid.optionsprofiles.profiles.loaders;
+package net.trafficlunar.optionsprofiles.profiles.loaders;
 
 import com.seibel.distanthorizons.core.config.ConfigBase;
 

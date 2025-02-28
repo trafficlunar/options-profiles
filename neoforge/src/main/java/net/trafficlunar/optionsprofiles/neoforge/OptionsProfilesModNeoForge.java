@@ -1,6 +1,6 @@
-package com.axolotlmaid.optionsprofiles.neoforge;
+package net.trafficlunar.optionsprofiles.neoforge;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.neoforged.fml.common.Mod;
 
 @Mod(OptionsProfilesMod.MOD_ID)

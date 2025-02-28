@@ -1,13 +1,13 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
+issueTrackerURL = "https://github.com/trafficlunar/options-profiles/issues"
 license = "GNU GPL 3.0"
 
 [[mods]]
 modId = "optionsprofiles"
 version = "${version}"
 displayName = "Options Profiles"
-authors = "AxolotlMaid"
+authors = "trafficlunar"
 description = '''
 Load and save your options from in-game.
 '''

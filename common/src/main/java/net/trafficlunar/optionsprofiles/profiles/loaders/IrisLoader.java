@@ -1,9 +1,8 @@
-package com.axolotlmaid.optionsprofiles.profiles.loaders;
+package net.trafficlunar.optionsprofiles.profiles.loaders;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.irisshaders.iris.Iris;
 import net.irisshaders.iris.api.v0.IrisApi;
-import net.irisshaders.iris.gui.option.IrisVideoSettings;
 
 import java.io.FileReader;
 import java.io.IOException;

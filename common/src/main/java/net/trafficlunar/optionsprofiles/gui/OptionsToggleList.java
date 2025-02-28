@@ -1,8 +1,8 @@
-package com.axolotlmaid.optionsprofiles.gui;
+package net.trafficlunar.optionsprofiles.gui;
 
-import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
-import com.axolotlmaid.optionsprofiles.profiles.ProfileConfiguration;
-import com.axolotlmaid.optionsprofiles.profiles.Profiles;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
+import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
