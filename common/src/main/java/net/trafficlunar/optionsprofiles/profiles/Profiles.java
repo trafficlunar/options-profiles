@@ -1,5 +1,6 @@
 package net.trafficlunar.optionsprofiles.profiles;
 
+import dev.architectury.platform.Platform;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.trafficlunar.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
 import net.trafficlunar.optionsprofiles.profiles.loaders.IrisLoader;
@@ -123,10 +124,14 @@ public class Profiles {
 
         copyOptionFile(profile, OPTIONS_FILE);
         copyOptionFile(profile, OPTIFINE_OPTIONS_FILE);
-        copyOptionFile(profile, SODIUM_OPTIONS_FILE);
-        copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
-        copyOptionFile(profile, IRIS_OPTIONS_FILE);
-        copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
+        if (Platform.isModLoaded("sodium"))
+            copyOptionFile(profile, SODIUM_OPTIONS_FILE);
+        if (Platform.isModLoaded("sodium-extra"))
+            copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
+        if (Platform.isModLoaded("iris"))
+            copyOptionFile(profile, IRIS_OPTIONS_FILE);
+        if (Platform.isModLoaded("distanthorizons"))
+            copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
         if (!overwriting) {
             ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
@@ -156,10 +161,10 @@ public class Profiles {
 
         // The next few lines check if the specified file exists. If so, it adds it to the optionFiles ArrayList.
         Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
-        Optional.of(SODIUM_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
-        Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
-        Optional.of(IRIS_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
-        Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
+        Optional.of(SODIUM_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium")).ifPresent(optionFiles::add);
+        Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium-extra")).ifPresent(optionFiles::add);
+        Optional.of(IRIS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("iris")).ifPresent(optionFiles::add);
+        Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("distanthorizons")).ifPresent(optionFiles::add);
 
         // Check if the original option file and the profile option file have the same content
         try {
@@ -283,12 +288,17 @@ public class Profiles {
     public static void loadProfile(String profileName) {
         loadOptionFile(profileName, OPTIONS_FILE);
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
-        loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
-        loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
-        loadOptionFile(profileName, IRIS_OPTIONS_FILE, IrisLoader::load);
-        
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);                                 // Overwrite / load original Disant Horizons option file
-        loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);    // Tell Distant Horizons mod to reload configuration
+
+        if (Platform.isModLoaded("sodium"))
+            loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
+        if (Platform.isModLoaded("sodium-extra"))
+            loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
+        if (Platform.isModLoaded("iris"))
+            loadOptionFile(profileName, IRIS_OPTIONS_FILE, IrisLoader::load);
+        if (Platform.isModLoaded("distanthorizons")) {
+            loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);                                 // Overwrite / load original Disant Horizons option file
+            loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);    // Tell Distant Horizons mod to reload configuration
+        }
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
