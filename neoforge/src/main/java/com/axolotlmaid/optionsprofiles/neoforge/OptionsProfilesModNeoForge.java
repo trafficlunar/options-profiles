@@ -1,4 +1,4 @@
-package com.axolotlmaid.optionsprofiles.forge;
+package com.axolotlmaid.optionsprofiles.neoforge;
 
 import com.axolotlmaid.optionsprofiles.OptionsProfilesMod;
 import net.neoforged.fml.common.Mod;

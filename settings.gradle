@@ -9,7 +9,6 @@ pluginManagement {
 
 include("common")
 include("fabric")
-include("forge")
 include("neoforge")
 
 rootProject.name = "optionsprofiles-v1.3.2-1.21.4"
