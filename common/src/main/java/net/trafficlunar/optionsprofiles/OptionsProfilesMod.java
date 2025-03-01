@@ -1,5 +1,6 @@
 package net.trafficlunar.optionsprofiles;
 
+import dev.architectury.event.events.client.ClientLifecycleEvent;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.Commands;
@@ -29,10 +30,8 @@ public class OptionsProfilesMod {
             }
         }
 
+        // Load mod config
         CONFIG = OptionsProfilesModConfiguration.load();
-
-        // Update / add configuration for existing profiles
-        Profiles.updateProfiles();
 
         // Add /optionsprofiles command
         CommandRegistrationEvent.EVENT.register(((dispatcher, buildContext, selection) -> dispatcher.register(
@@ -43,6 +42,11 @@ public class OptionsProfilesMod {
                             return 1;
                         })
                     )));
+
+        // Init profiles
+        ClientLifecycleEvent.CLIENT_STARTED.register(client -> {
+            Profiles.init();
+        });
     }
 
     public static OptionsProfilesModConfiguration config() {

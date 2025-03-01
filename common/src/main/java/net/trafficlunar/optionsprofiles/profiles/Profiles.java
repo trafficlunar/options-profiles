@@ -27,8 +27,7 @@ public class Profiles {
     public static final Path IRIS_OPTIONS_FILE = Paths.get("config/iris.properties");
     public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
-    // This function goes through every profile and updates / adds the configuration file if it doesn't exist
-    public static void updateProfiles() {
+    public static void init() {
         try (Stream<Path> paths = Files.list(PROFILES_DIRECTORY)) {
             paths.filter(Files::isDirectory)
                     .forEach(path -> {
@@ -36,32 +35,13 @@ public class Profiles {
 
                         // This gets the configuration but also creates the configuration file if it is not there
                         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
-                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
-
-                        // Checks for updates to the configuration
-                        if (profileConfiguration.getVersion() != ProfileConfiguration.configurationVersion) {
-                            Path configurationFile = path.resolve("configuration.json");
-
-                            try {
-                                Files.delete(configurationFile);
-                            } catch (IOException e) {
-                                OptionsProfilesMod.LOGGER.error("[Profile '{}']: Error deleting configuration file", profileName, e);
-                            }
-
-                            // Create the configuration.json again thus updating it
-                            profileConfiguration = ProfileConfiguration.get(profileName);
-
-                            // Add player's old configuration
-                            profileConfiguration.setOptionsToLoad(optionsToLoad);
-
-                            // Save configuration
-                            profileConfiguration.save();
+                        if (profileConfiguration.shouldLoadOnStartup()) {
+                            loadProfile(profileName);
+                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Loaded on startup", profileName);
                         }
-
-                        OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Profile configuration updated / added", profileName);
                     });
         } catch (IOException e) {
-            OptionsProfilesMod.LOGGER.error("An error occurred when updating profiles", e);
+            OptionsProfilesMod.LOGGER.error("An error occurred when initializing", e);
         }
     }
 

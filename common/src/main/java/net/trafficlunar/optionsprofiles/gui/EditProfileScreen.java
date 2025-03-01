@@ -1,29 +1,29 @@
 package net.trafficlunar.optionsprofiles.gui;
 
-import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.StringWidget;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LayoutSettings;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
+import net.trafficlunar.optionsprofiles.profiles.Profiles;
 
 public class EditProfileScreen extends Screen {
     private final ProfilesScreen profilesScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 24, 33);
 
     private final Component profileName;
+    private final ProfileConfiguration profileConfiguration;
     private EditBox profileNameEdit;
 
     public EditProfileScreen(ProfilesScreen profilesScreen, Component profileName) {
         super(Component.literal(Component.translatable("gui.optionsprofiles.editing-profile-title").getString() + profileName.getString()));
         this.profilesScreen = profilesScreen;
         this.profileName = profileName;
+        this.profileConfiguration = ProfileConfiguration.get(profileName.getString());
     }
 
     protected void init() {
@@ -77,6 +77,28 @@ public class EditProfileScreen extends Screen {
                 LayoutSettings::alignHorizontallyCenter
         );
 
+        LinearLayout linearLayoutStartup = linearLayoutContent.addChild(LinearLayout.horizontal().spacing(12), LayoutSettings::alignHorizontallyCenter);
+        CycleButton<Boolean> loadOnStartupButton = CycleButton.onOffBuilder(this.profileConfiguration.shouldLoadOnStartup()).displayOnlyValue().create(0, 0, 44, 20, Component.empty(), (button, boolean_) -> {
+            // If toggled to true
+            if (boolean_) {
+                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.GREEN));      // Set the button's color to green
+            } else {
+                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.RED));        // Set the button's color to red
+            }
+
+            this.profileConfiguration.setLoadOnStartup(boolean_);
+        });
+
+        // Set color on first init
+        if (this.profileConfiguration.shouldLoadOnStartup()) {
+            loadOnStartupButton.setMessage(loadOnStartupButton.getMessage().copy().withStyle(ChatFormatting.GREEN));    // Set the button's color to green
+        } else {
+            loadOnStartupButton.setMessage(loadOnStartupButton.getMessage().copy().withStyle(ChatFormatting.RED));      // Set the button's color to red
+        }
+
+        linearLayoutStartup.addChild(new StringWidget(Component.translatable("gui.optionsprofiles.load-on-startup"), this.font), LayoutSettings::alignVerticallyMiddle);
+        linearLayoutStartup.addChild(loadOnStartupButton);
+
         this.layout.addToFooter(
                 Button.builder(
                                 CommonComponents.GUI_DONE,
@@ -106,6 +128,7 @@ public class EditProfileScreen extends Screen {
     }
 
     public void onClose() {
+        this.profileConfiguration.save();
         this.minecraft.setScreen(this.profilesScreen);
         this.profilesScreen.profilesList.refreshEntries();
     }

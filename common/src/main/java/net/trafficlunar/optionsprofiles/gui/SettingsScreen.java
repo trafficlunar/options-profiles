@@ -27,7 +27,7 @@ public class SettingsScreen extends Screen {
         linearLayoutHeader.addChild(new StringWidget(this.title, this.font), LayoutSettings::alignHorizontallyCenter);
 
         LinearLayout linearLayoutContent = this.layout.addToContents(LinearLayout.horizontal().spacing(12), LayoutSettings::alignHorizontallyCenter);
-        CycleButton<Boolean> showProfilesButtonButton = CycleButton.onOffBuilder(OptionsProfilesMod.config().shouldShowProfilesButton()).displayOnlyValue().create(this.width / 2 + 60, 100, 44, 20, Component.empty(), (button, boolean_) -> {
+        CycleButton<Boolean> showProfilesButtonButton = CycleButton.onOffBuilder(OptionsProfilesMod.config().shouldShowProfilesButton()).displayOnlyValue().create(0, 0, 44, 20, Component.empty(), (button, boolean_) -> {
             // If toggled to true
             if (boolean_) {
                 button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.GREEN));      // Set the button's color to green
