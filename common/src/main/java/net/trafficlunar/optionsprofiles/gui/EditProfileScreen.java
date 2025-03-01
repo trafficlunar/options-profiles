@@ -40,7 +40,6 @@ public class EditProfileScreen extends Screen {
         linearLayoutEditBox.addChild(this.profileNameEdit);
 
         LinearLayout linearLayoutButtons = linearLayoutContent.addChild(LinearLayout.vertical().spacing(1), LayoutSettings::alignHorizontallyCenter);
-
         linearLayoutButtons.addChild(
                 Button.builder(
                                 Component.translatable("gui.optionsprofiles.overwrite-options"),
@@ -77,27 +76,23 @@ public class EditProfileScreen extends Screen {
                 LayoutSettings::alignHorizontallyCenter
         );
 
-        LinearLayout linearLayoutStartup = linearLayoutContent.addChild(LinearLayout.horizontal().spacing(12), LayoutSettings::alignHorizontallyCenter);
-        CycleButton<Boolean> loadOnStartupButton = CycleButton.onOffBuilder(this.profileConfiguration.shouldLoadOnStartup()).displayOnlyValue().create(0, 0, 44, 20, Component.empty(), (button, boolean_) -> {
-            // If toggled to true
-            if (boolean_) {
-                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.GREEN));      // Set the button's color to green
-            } else {
-                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.RED));        // Set the button's color to red
-            }
-
-            this.profileConfiguration.setLoadOnStartup(boolean_);
-        });
-
-        // Set color on first init
-        if (this.profileConfiguration.shouldLoadOnStartup()) {
-            loadOnStartupButton.setMessage(loadOnStartupButton.getMessage().copy().withStyle(ChatFormatting.GREEN));    // Set the button's color to green
-        } else {
-            loadOnStartupButton.setMessage(loadOnStartupButton.getMessage().copy().withStyle(ChatFormatting.RED));      // Set the button's color to red
-        }
-
-        linearLayoutStartup.addChild(new StringWidget(Component.translatable("gui.optionsprofiles.load-on-startup"), this.font), LayoutSettings::alignVerticallyMiddle);
-        linearLayoutStartup.addChild(loadOnStartupButton);
+        LinearLayout linearLayoutSettings = linearLayoutContent.addChild(LinearLayout.vertical().spacing(1), LayoutSettings::alignHorizontallyCenter);
+        linearLayoutSettings.addChild(
+                CycleButton.<Integer>builder(value -> Component.literal(value.toString()))
+                        .withValues(0, 1, 2, 3)
+                        .withInitialValue(0)
+                        .create(0, 0, 150, 20, Component.translatable("gui.optionsprofiles.keybind-index"), (button, keybindIndex) -> {
+                            this.profileConfiguration.setKeybindIndex(keybindIndex);
+                        }),
+                LayoutSettings::alignHorizontallyCenter
+        );
+        linearLayoutSettings.addChild(
+                CycleButton.onOffBuilder(this.profileConfiguration.shouldLoadOnStartup())
+                        .create(0, 0, 150, 20, Component.translatable("gui.optionsprofiles.load-on-startup"), (button, boolean_) -> {
+                            this.profileConfiguration.setLoadOnStartup(boolean_);
+                        }),
+                LayoutSettings::alignHorizontallyCenter
+        );
 
         this.layout.addToFooter(
                 Button.builder(

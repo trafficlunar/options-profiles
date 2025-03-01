@@ -10,6 +10,7 @@
   "gui.optionsprofiles.overwrite-options.tooltip": "Replaces the profile's options with your current options",
   "gui.optionsprofiles.rename-profile": "Rename",
   "gui.optionsprofiles.delete-profile": "Delete",
+  "gui.optionsprofiles.keybind-index": "Keybind index",
   "gui.optionsprofiles.load-on-startup": "Load on startup",
 
   "gui.optionsprofiles.options-toggle": "Select options to toggle",
@@ -20,5 +21,10 @@
   "gui.optionsprofiles.settings-button": "Settings",
   "gui.optionsprofiles.settings-menu": "Options Profiles Settings",
   "gui.optionsprofiles.show-profiles-button": "Show Profiles Button",
-  "gui.optionsprofiles.show-profiles-button.tooltip": "Toggle to remove the profiles button in Options. Access profiles through /optionsprofiles."
+  "gui.optionsprofiles.show-profiles-button.tooltip": "Toggle to remove the profiles button in Options. Access profiles through /optionsprofiles.",
+
+  "category.optionsprofiles.keys": "Options Profiles",
+  "key.optionsprofiles.profile_1": "Profile 1",
+  "key.optionsprofiles.profile_2": "Profile 2",
+  "key.optionsprofiles.profile_3": "Profile 3"
 }

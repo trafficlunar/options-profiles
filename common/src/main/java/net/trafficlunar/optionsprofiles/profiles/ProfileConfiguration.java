@@ -17,6 +17,7 @@ public class ProfileConfiguration {
     private static String profileName;
 
     private boolean loadOnStartup = false;
+    private int keybindIndex = 0;
     private List<String> optionsToLoad = new ArrayList<>();
 
     public ProfileConfiguration save() {
@@ -61,6 +62,14 @@ public class ProfileConfiguration {
 
     public void setLoadOnStartup(boolean loadOnStartup) {
         this.loadOnStartup = loadOnStartup;
+    }
+
+    public int getKeybindIndex() {
+        return keybindIndex;
+    }
+
+    public void setKeybindIndex(int keybindIndex) {
+        this.keybindIndex = keybindIndex;
     }
 
     public List<String> getOptionsToLoad() {

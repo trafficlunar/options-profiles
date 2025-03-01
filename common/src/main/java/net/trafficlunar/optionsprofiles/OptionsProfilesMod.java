@@ -1,10 +1,6 @@
 package net.trafficlunar.optionsprofiles;
 
 import dev.architectury.event.events.client.ClientLifecycleEvent;
-import dev.architectury.event.events.common.CommandRegistrationEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.commands.Commands;
-import net.trafficlunar.optionsprofiles.gui.ProfilesScreen;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +16,7 @@ public class OptionsProfilesMod {
     private static OptionsProfilesModConfiguration CONFIG;
 
     public static void init() {
+        // Create options-profiles directory
         Path profilesDirectory = Paths.get("options-profiles");
 
         if (Files.notExists(profilesDirectory)) {
@@ -33,20 +30,13 @@ public class OptionsProfilesMod {
         // Load mod config
         CONFIG = OptionsProfilesModConfiguration.load();
 
-        // Add /optionsprofiles command
-        CommandRegistrationEvent.EVENT.register(((dispatcher, buildContext, selection) -> dispatcher.register(
-                Commands
-                        .literal("optionsprofiles")
-                        .executes(context -> {
-                            Minecraft.getInstance().execute(() -> Minecraft.getInstance().setScreen(new ProfilesScreen(null)));
-                            return 1;
-                        })
-                    )));
-
-        // Init profiles
+        // Init profiles (for loading on startup)
         ClientLifecycleEvent.CLIENT_STARTED.register(client -> {
             Profiles.init();
         });
+
+        Keybinds.init();
+        Commands.init();
     }
 
     public static OptionsProfilesModConfiguration config() {

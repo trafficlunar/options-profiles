@@ -26,29 +26,13 @@ public class SettingsScreen extends Screen {
         LinearLayout linearLayoutHeader = this.layout.addToHeader(LinearLayout.vertical());
         linearLayoutHeader.addChild(new StringWidget(this.title, this.font), LayoutSettings::alignHorizontallyCenter);
 
-        LinearLayout linearLayoutContent = this.layout.addToContents(LinearLayout.horizontal().spacing(12), LayoutSettings::alignHorizontallyCenter);
-        CycleButton<Boolean> showProfilesButtonButton = CycleButton.onOffBuilder(OptionsProfilesMod.config().shouldShowProfilesButton()).displayOnlyValue().create(0, 0, 44, 20, Component.empty(), (button, boolean_) -> {
-            // If toggled to true
-            if (boolean_) {
-                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.GREEN));      // Set the button's color to green
-            } else {
-                button.setMessage(button.getMessage().copy().withStyle(ChatFormatting.RED));        // Set the button's color to red
-            }
-
+        CycleButton<Boolean> showProfilesButtonButton = CycleButton.onOffBuilder(OptionsProfilesMod.config().shouldShowProfilesButton())
+                .create(0, 0, 150, 20, Component.translatable("gui.optionsprofiles.show-profiles-button"), (button, boolean_) -> {
             OptionsProfilesMod.config().setShowProfilesButton(boolean_);
         });
 
         showProfilesButtonButton.setTooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.show-profiles-button.tooltip")));
-
-        // Set color on first init
-        if (OptionsProfilesMod.config().shouldShowProfilesButton()) {
-            showProfilesButtonButton.setMessage(showProfilesButtonButton.getMessage().copy().withStyle(ChatFormatting.GREEN));    // Set the button's color to green
-        } else {
-            showProfilesButtonButton.setMessage(showProfilesButtonButton.getMessage().copy().withStyle(ChatFormatting.RED));      // Set the button's color to red
-        }
-
-        linearLayoutContent.addChild(new StringWidget(Component.translatable("gui.optionsprofiles.show-profiles-button"), this.font), LayoutSettings::alignVerticallyMiddle);
-        linearLayoutContent.addChild(showProfilesButtonButton);
+        this.layout.addToContents(showProfilesButtonButton);
 
         this.layout.addToFooter(
                 Button.builder(
