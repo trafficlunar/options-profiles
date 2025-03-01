@@ -1,8 +1,8 @@
-package net.trafficlunar.optionsprofiles.profiles;
+package net.trafficlunar.optionsprofiles;
 
-import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.trafficlunar.optionsprofiles.profiles.Profiles;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

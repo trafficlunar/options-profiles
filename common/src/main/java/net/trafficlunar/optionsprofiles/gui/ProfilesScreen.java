@@ -22,6 +22,13 @@ public class ProfilesScreen extends OptionsSubScreen {
     protected void addContents() {
         this.layout.setHeaderHeight(24);
         this.profilesList = this.layout.addToContents(new ProfilesList(this, this.minecraft));
+
+        this.addRenderableWidget(Button.builder(
+                        Component.translatable("gui.optionsprofiles.settings-button"),
+                        (button) -> this.minecraft.setScreen(new SettingsScreen(this)))
+                .width(75)
+                .pos(1, 1)
+                .build());
     }
 
     protected void addFooter() {

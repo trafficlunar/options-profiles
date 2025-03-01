@@ -4,7 +4,6 @@ import dev.architectury.event.events.common.CommandRegistrationEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.Commands;
 import net.trafficlunar.optionsprofiles.gui.ProfilesScreen;
-import net.trafficlunar.optionsprofiles.profiles.OptionsProfilesModConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
