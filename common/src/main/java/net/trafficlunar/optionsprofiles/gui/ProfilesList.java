@@ -36,7 +36,9 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(Profiles.PROFILES_DIRECTORY)) {
             List<Path> profileList = new ArrayList<>();
             for (Path profile : directoryStream) {
-                profileList.add(profile);
+                if (Files.isDirectory(profile)) {
+                    profileList.add(profile);
+                }
             }
 
             // Sort the list alphabetically based on the profile names
