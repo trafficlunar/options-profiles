@@ -70,8 +70,8 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
         }
     }
 
-    protected int scrollBarX() {
-        return super.scrollBarX() + 15;
+    protected int getScrollbarPosition() {
+        return super.getScrollbarPosition() + 15;
     }
 
     public int getRowWidth() {
@@ -113,7 +113,7 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
         public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             Font fontRenderer = OptionsToggleList.this.minecraft.font;
 
-            int posX = OptionsToggleList.this.scrollBarX() - this.toggleButton.getWidth() - 10;
+            int posX = OptionsToggleList.this.getScrollbarPosition() - this.toggleButton.getWidth() - 10;
             int posY = y - 2;
             int textY = y + entryHeight / 2;
 
