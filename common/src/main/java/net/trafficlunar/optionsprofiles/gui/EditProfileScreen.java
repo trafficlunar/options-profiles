@@ -80,7 +80,7 @@ public class EditProfileScreen extends Screen {
         linearLayoutSettings.addChild(
                 CycleButton.<Integer>builder(value -> Component.literal(value.toString()))
                         .withValues(0, 1, 2, 3)
-                        .withInitialValue(0)
+                        .withInitialValue(this.profileConfiguration.getKeybindIndex())
                         .create(0, 0, 150, 20, Component.translatable("gui.optionsprofiles.keybind-index"), (button, keybindIndex) -> {
                             this.profileConfiguration.setKeybindIndex(keybindIndex);
                         }),
