@@ -18,7 +18,8 @@
   "entrypoints": {
     "main": [
       "net.trafficlunar.optionsprofiles.fabric.OptionsProfilesModFabric"
-    ]
+    ],
+    "modmenu": [ "net.trafficlunar.optionsprofiles.fabric.ModMenuApiImpl" ]
   },
   "mixins": [
     "optionsprofiles.mixins.json"
