@@ -26,9 +26,9 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
     private final String profileName;
     private final ProfileConfiguration profileConfiguration;
 
-    public OptionsToggleList(OptionsToggleScreen optionsToggleScreen, Minecraft minecraft, String profileName) {
+    public OptionsToggleList(OptionsToggleScreen optionsToggleScreen, Minecraft minecraft, String profileName, ProfileConfiguration profileConfiguration) {
         super(minecraft, optionsToggleScreen.width, optionsToggleScreen.layout.getContentHeight(), optionsToggleScreen.layout.getHeaderHeight(), 20);
-        this.profileConfiguration = optionsToggleScreen.profileConfiguration;
+        this.profileConfiguration = profileConfiguration;
         this.profileName = profileName;
 
         refreshEntries(false, false);

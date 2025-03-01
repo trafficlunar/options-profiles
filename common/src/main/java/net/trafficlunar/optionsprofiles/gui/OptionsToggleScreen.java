@@ -11,20 +11,20 @@ import net.minecraft.network.chat.Component;
 
 public class OptionsToggleScreen extends OptionsSubScreen {
     private final Component profileName;
+    private final ProfileConfiguration profileConfiguration;
     private OptionsToggleList optionsToggleList;
-    public ProfileConfiguration profileConfiguration;
 
-    protected OptionsToggleScreen(Screen lastScreen, Component profileName) {
+    protected OptionsToggleScreen(Screen lastScreen, Component profileName, ProfileConfiguration profileConfiguration) {
         super(lastScreen, null, Component.literal(Component.translatable("gui.optionsprofiles.options-toggle").append(": ").getString() + profileName.getString()));
         this.profileName = profileName;
-        this.profileConfiguration = ProfileConfiguration.get(profileName.getString());
+        this.profileConfiguration = profileConfiguration;
     }
 
     protected void addOptions() {}
 
     protected void addContents() {
         this.layout.setHeaderHeight(24);
-        this.optionsToggleList = this.layout.addToContents(new OptionsToggleList(this, this.minecraft, profileName.getString()));
+        this.optionsToggleList = this.layout.addToContents(new OptionsToggleList(this, this.minecraft, profileName.getString(), this.profileConfiguration));
     }
 
     protected void addFooter() {
@@ -55,7 +55,7 @@ public class OptionsToggleScreen extends OptionsSubScreen {
     }
 
     public void removed() {
-        profileConfiguration.save();
+        this.profileConfiguration.save();
     }
 
     protected void repositionElements() {
