@@ -39,7 +39,7 @@ public class OptionsProfilesMod {
                 Commands
                         .literal("optionsprofiles")
                         .executes(context -> {
-                            Minecraft.getInstance().setScreen(new ProfilesScreen(null));
+                            Minecraft.getInstance().execute(() -> Minecraft.getInstance().setScreen(new ProfilesScreen(null)));
                             return 1;
                         })
                     )));
