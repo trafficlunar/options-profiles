@@ -1,6 +1,7 @@
 package net.trafficlunar.optionsprofiles.profiles;
 
 import dev.architectury.platform.Platform;
+import net.minecraft.client.Minecraft;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.trafficlunar.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
 import net.trafficlunar.optionsprofiles.profiles.loaders.IrisLoader;
@@ -36,8 +37,20 @@ public class Profiles {
                         // This gets the configuration but also creates the configuration file if it is not there
                         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
                         if (profileConfiguration.shouldLoadOnStartup()) {
+                            Minecraft minecraft = Minecraft.getInstance();
                             loadProfile(profileName);
-                            OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Loaded on startup", profileName);
+
+                            minecraft.options.load();
+
+                            if (ProfileConfiguration.get(profileName).getOptionsToLoad().contains("resourcePacks")) {
+                                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
+                                minecraft.reloadResourcePacks();
+                            }
+
+                            minecraft.options.save();
+                            minecraft.levelRenderer.allChanged();
+
+                            OptionsProfilesMod.LOGGER.info("[Profile '{}']: Loaded on startup", profileName);
                         }
                     });
         } catch (IOException e) {
