@@ -42,8 +42,6 @@ public class SodiumLoader {
         SodiumClientMod.options().notifications.hasClearedDonationButton = configuration.notifications.has_cleared_donation_button;
         SodiumClientMod.options().notifications.hasSeenDonationPrompt = configuration.notifications.has_seen_donation_prompt;
 
-        SodiumClientMod.options().debug.terrainSortingEnabled = configuration.debug.terrain_sorting_enabled;
-
         try {
             SodiumGameOptions.writeToDisk(SodiumClientMod.options());
         } catch (IOException e) {
@@ -56,7 +54,6 @@ public class SodiumLoader {
         public Advanced advanced;
         public Performance performance;
         public Notifications notifications;
-        public Debug debug;
 
         public static class Quality {
             public String weather_quality;
@@ -83,10 +80,6 @@ public class SodiumLoader {
         public static class Notifications {
             public boolean has_cleared_donation_button;
             public boolean has_seen_donation_prompt;
-        }
-
-        public static class Debug {
-            public boolean terrain_sorting_enabled;
         }
     }
 }

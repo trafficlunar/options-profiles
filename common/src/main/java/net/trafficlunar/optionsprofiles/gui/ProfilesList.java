@@ -109,7 +109,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
             int posY = y - 2;
             int textY = y + entryHeight / 2;
 
-            guiGraphics.drawString(fontRenderer, this.profileName, x, textY - 9 / 2, 16777215, false);
+            guiGraphics.drawString(fontRenderer, this.profileName, x, textY - 9 / 2, -1);
 
             this.editButton.setPosition(posX - this.editButton.getWidth(), posY);
             this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);

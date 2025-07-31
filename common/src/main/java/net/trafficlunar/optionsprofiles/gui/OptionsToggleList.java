@@ -117,7 +117,7 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
             int posY = y - 2;
             int textY = y + entryHeight / 2;
 
-            guiGraphics.drawString(fontRenderer, this.optionKey, x, textY - 9 / 2, 16777215, false);
+            guiGraphics.drawString(fontRenderer, this.optionKey, x, textY - 9 / 2, -1);
 
             this.toggleButton.setPosition(posX, posY);
             this.toggleButton.render(guiGraphics, mouseX, mouseY, tickDelta);
