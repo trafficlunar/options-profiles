@@ -107,7 +107,7 @@ public class EditProfileScreen extends Screen {
                                         .withStyle(ChatFormatting.RED),
                                 (button) -> {
                                     Profiles.deleteProfile(profileName.getString());
-                                    this.onClose();
+                                    this.onClose(true);
                                 })
                         .width(50)
                         .build(),
@@ -122,8 +122,14 @@ public class EditProfileScreen extends Screen {
         this.layout.arrangeElements();
     }
 
+    @Override
     public void onClose() {
-        this.profileConfiguration.save();
+        this.onClose(false);
+    }
+
+    public void onClose(boolean deleted) {
+        if (!deleted)
+            this.profileConfiguration.save();
         this.minecraft.setScreen(this.profilesScreen);
         this.profilesScreen.profilesList.refreshEntries();
     }
