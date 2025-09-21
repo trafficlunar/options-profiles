@@ -1,15 +1,18 @@
 package net.trafficlunar.optionsprofiles.profiles.loaders;
 
-import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.flashyreese.mods.sodiumextra.client.SodiumExtraClientMod;
+import me.flashyreese.mods.sodiumextra.client.gui.FogTypeConfig;
 import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraGameOptions;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.FogType;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class SodiumExtraLoader {
@@ -47,10 +50,8 @@ public class SodiumExtraLoader {
         SodiumExtraClientMod.options().detailSettings.biomeColors = configuration.detail_settings.biome_colors;
         SodiumExtraClientMod.options().detailSettings.skyColors = configuration.detail_settings.sky_colors;
 
-        SodiumExtraClientMod.options().renderSettings.fogDistance = configuration.render_settings.fog_distance;
-        SodiumExtraClientMod.options().renderSettings.fogStart = configuration.render_settings.fog_start;
-        SodiumExtraClientMod.options().renderSettings.multiDimensionFogControl = configuration.render_settings.multi_dimension_fog_control;
-        SodiumExtraClientMod.options().renderSettings.dimensionFogDistanceMap = configuration.render_settings.dimensionFogDistance;
+        SodiumExtraClientMod.options().renderSettings.globalFog = configuration.render_settings.global_fog;
+        SodiumExtraClientMod.options().renderSettings.fogTypeConfig = configuration.render_settings.fog_type_config;
         SodiumExtraClientMod.options().renderSettings.lightUpdates = configuration.render_settings.light_updates;
         SodiumExtraClientMod.options().renderSettings.itemFrame = configuration.render_settings.item_frame;
         SodiumExtraClientMod.options().renderSettings.armorStand = configuration.render_settings.armor_stand;
@@ -120,10 +121,8 @@ public class SodiumExtraLoader {
         }
 
         public static class RenderSettings {
-            public int fog_distance;
-            public int fog_start;
-            public boolean multi_dimension_fog_control;
-            public Map<ResourceLocation, Integer> dimensionFogDistance;
+            public boolean global_fog;
+            public EnumMap<FogType, FogTypeConfig> fog_type_config;
             public boolean light_updates;
             public boolean item_frame;
             public boolean armor_stand;

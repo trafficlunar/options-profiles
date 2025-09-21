@@ -146,57 +146,60 @@ public class Profiles {
     }
 
     public static boolean isProfileLoaded(String profileName) {
-        Path profile = PROFILES_DIRECTORY.resolve(profileName);
-        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+        // TODO: rewrite/fix; returns incorrect results
 
-        List<Path> optionFiles = new ArrayList<>();
-        optionFiles.add(OPTIONS_FILE);
-
-        // The next few lines check if the specified file exists. If so, it adds it to the optionFiles ArrayList.
-        Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
-        Optional.of(SODIUM_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium")).ifPresent(optionFiles::add);
-        Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium-extra")).ifPresent(optionFiles::add);
-        Optional.of(IRIS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("iris")).ifPresent(optionFiles::add);
-        Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("distanthorizons")).ifPresent(optionFiles::add);
-
-        // Check if the original option file and the profile option file have the same content
-        try {
-            for (Path optionFile : optionFiles) {
-                Path profileOptions = profile.resolve(optionFile.getFileName());
-
-                if (optionFile.getFileName().equals(OPTIONS_FILE)) {
-                    try (Stream<String> lines = Files.lines(optionFile)) {
-                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
-                        AtomicBoolean loaded = new AtomicBoolean(false);
-
-                        lines.forEach((line) -> {
-                            String[] option = line.split(":");
-
-                            if (optionsToLoad.contains(option[0])) {
-                                try (Stream<String> profileLines = Files.lines(profileOptions)) {
-                                    loaded.set(profileLines.anyMatch(profileLine -> profileLine.equals(line)));
-                                } catch (IOException e) {
-                                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when checking each line in options.txt if the profiles is loaded", profileName, e);
-                                }
-                            }
-                        });
-
-                        return loaded.get();
-                    } catch (IOException e) {
-                        OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when opening options.txt to check if the profile is loaded", profileName, e);
-                    }
-                } else {
-                    if (!FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
-                        return false;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when checking if the profile is loaded", profileName, e);
-            return false;
-        }
-
-        return true;
+//        Path profile = PROFILES_DIRECTORY.resolve(profileName);
+//        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+//
+//        List<Path> optionFiles = new ArrayList<>();
+//        optionFiles.add(OPTIONS_FILE);
+//
+//        // The next few lines check if the specified file exists. If so, it adds it to the optionFiles ArrayList.
+//        Optional.of(OPTIFINE_OPTIONS_FILE).filter(Files::exists).ifPresent(optionFiles::add);
+//        Optional.of(SODIUM_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium")).ifPresent(optionFiles::add);
+//        Optional.of(SODIUM_EXTRA_OPTIONS_FILE).filter(file -> Platform.isModLoaded("sodium-extra")).ifPresent(optionFiles::add);
+//        Optional.of(IRIS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("iris")).ifPresent(optionFiles::add);
+//        Optional.of(DISTANT_HORIZONS_OPTIONS_FILE).filter(file -> Platform.isModLoaded("distanthorizons")).ifPresent(optionFiles::add);
+//
+//        // Check if the original option file and the profile option file have the same content
+//        try {
+//            for (Path optionFile : optionFiles) {
+//                Path profileOptions = profile.resolve(optionFile.getFileName());
+//
+//                if (optionFile.getFileName().equals(OPTIONS_FILE)) {
+//                    try (Stream<String> lines = Files.lines(optionFile)) {
+//                        List<String> optionsToLoad = profileConfiguration.getOptionsToLoad();
+//                        AtomicBoolean loaded = new AtomicBoolean(false);
+//
+//                        lines.forEach((line) -> {
+//                            String[] option = line.split(":");
+//
+//                            if (optionsToLoad.contains(option[0])) {
+//                                try (Stream<String> profileLines = Files.lines(profileOptions)) {
+//                                    loaded.set(profileLines.anyMatch(profileLine -> profileLine.equals(line)));
+//                                } catch (IOException e) {
+//                                    OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when checking each line in options.txt if the profiles is loaded", profileName, e);
+//                                }
+//                            }
+//                        });
+//
+//                        return loaded.get();
+//                    } catch (IOException e) {
+//                        OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when opening options.txt to check if the profile is loaded", profileName, e);
+//                    }
+//                } else {
+//                    if (!FileUtils.contentEquals(optionFile.toFile(), profileOptions.toFile())) {
+//                        return false;
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            OptionsProfilesMod.LOGGER.error("[Profile '{}']: An error occurred when checking if the profile is loaded", profileName, e);
+//            return false;
+//        }
+//
+//        return true;
+        return false;
     }
 
     private static void loadOptionFile(String profileName, Path options) {
