@@ -1,34 +1,28 @@
 {
-  "schemaVersion": 1,
-  "id": "optionsprofiles",
-  "version": "${version}",
-  "name": "Options Profiles",
-  "description": "Load and save your options from in-game.",
-  "authors": [
-    "trafficlunar"
-  ],
-  "contact": {
-    "homepage": "https://github.com/trafficlunar/options-profiles",
-    "sources": "https://github.com/trafficlunar/options-profiles",
-    "issues": "https://github.com/trafficlunar/options-profiles/issues"
-  },
-  "license": "GNU GPL 3.0",
-  "icon": "assets/optionsprofiles/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "net.trafficlunar.optionsprofiles.fabric.OptionsProfilesModFabric"
-    ],
-    "modmenu": [ "net.trafficlunar.optionsprofiles.fabric.ModMenuApiImpl" ]
-  },
-  "mixins": [
-    "optionsprofiles.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=0.16.14",
-    "minecraft": "~1.21",
-    "java": ">=21",
-    "architectury": ">=17.0.6",
-    "fabric-api": "*"
-  }
+	"schemaVersion": 1,
+	"id": "optionsprofiles",
+	"version": "${version}",
+	"name": "Options Profiles",
+	"description": "Load and save your options from in-game.",
+	"authors": ["trafficlunar"],
+	"contact": {
+		"homepage": "https://github.com/trafficlunar/options-profiles",
+		"sources": "https://github.com/trafficlunar/options-profiles",
+		"issues": "https://github.com/trafficlunar/options-profiles/issues"
+	},
+	"license": "GNU GPL 3.0",
+	"icon": "assets/optionsprofiles/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["net.trafficlunar.optionsprofiles.fabric.OptionsProfilesModFabric"],
+		"modmenu": ["net.trafficlunar.optionsprofiles.fabric.ModMenuApiImpl"]
+	},
+	"mixins": ["optionsprofiles.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"architectury": ">=18.0.3",
+		"fabric-api": "*"
+	}
 }

@@ -23,7 +23,7 @@
   "gui.optionsprofiles.show-profiles-button": "Show Profiles Button",
   "gui.optionsprofiles.show-profiles-button.tooltip": "Toggle to remove the profiles button in Options. Access profiles through /optionsprofiles.",
 
-  "category.optionsprofiles.keys": "Options Profiles",
+  "key.category.optionsprofiles.keys": "Options Profiles",
   "key.optionsprofiles.profile_1": "Profile 1",
   "key.optionsprofiles.profile_2": "Profile 2",
   "key.optionsprofiles.profile_3": "Profile 3"

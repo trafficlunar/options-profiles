@@ -71,7 +71,6 @@ public class SodiumExtraLoader {
         SodiumExtraClientMod.options().extraSettings.reduceResolutionOnMac = configuration.extra_settings.reduce_resolution_on_mac;
         SodiumExtraClientMod.options().extraSettings.useAdaptiveSync = configuration.extra_settings.use_adaptive_sync;
         SodiumExtraClientMod.options().extraSettings.cloudHeight = configuration.extra_settings.cloud_height;
-        SodiumExtraClientMod.options().extraSettings.cloudDistance = configuration.extra_settings.cloud_distance;
         SodiumExtraClientMod.options().extraSettings.toasts = configuration.extra_settings.toasts;
         SodiumExtraClientMod.options().extraSettings.advancementToast = configuration.extra_settings.advancement_toast;
         SodiumExtraClientMod.options().extraSettings.recipeToast = configuration.extra_settings.recipe_toast;
@@ -144,7 +143,6 @@ public class SodiumExtraLoader {
             public boolean reduce_resolution_on_mac;
             public boolean use_adaptive_sync;
             public int cloud_height;
-            public int cloud_distance;
             public boolean toasts;
             public boolean advancement_toast;
             public boolean recipe_toast;

@@ -5,6 +5,7 @@ import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
 import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 
@@ -17,12 +18,14 @@ public class Keybinds {
     private static final KeyMapping[] PROFILE_KEYMAPPINGS = new KeyMapping[3];
 
     public static void init() {
+        KeyMapping.Category category = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(OptionsProfilesMod.MOD_ID, "keys"));
+
         for (int i = 0; i < PROFILE_KEYMAPPINGS.length; i++) {
             PROFILE_KEYMAPPINGS[i] = new KeyMapping(
                     "key.optionsprofiles.profile_" + (i + 1),
                     InputConstants.Type.KEYSYM,
                     -1,
-                    "category.optionsprofiles.keys"
+                    category
             );
             KeyMappingRegistry.register(PROFILE_KEYMAPPINGS[i]);
         }

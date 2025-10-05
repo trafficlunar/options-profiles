@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[2,)"
+loaderVersion = "[10,)"
 issueTrackerURL = "https://github.com/trafficlunar/options-profiles/issues"
 license = "GNU GPL 3.0"
 
@@ -16,7 +16,7 @@ logoFile = "icon.png"
 [[dependencies.optionsprofiles]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.6,)"
+versionRange = "[21.9.0-beta,)"
 ordering = "NONE"
 side = "BOTH"
 
@@ -30,7 +30,7 @@ side = "BOTH"
 [[dependencies.optionsprofiles]]
 modId = "architectury"
 type = "required"
-versionRange = "[17.0.6,)"
+versionRange = "[18.0.3,)"
 ordering = "AFTER"
 side = "BOTH"
 

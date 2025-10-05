@@ -51,12 +51,12 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
             OptionsProfilesMod.LOGGER.error("An error occurred when listing profiles", e);
         }
 
-        checkEntriesLoaded();
+//        checkEntriesLoaded();
     }
 
-    public void checkEntriesLoaded() {
-        this.children().forEach(ProfileEntry::checkLoaded);
-    }
+//    public void checkEntriesLoaded() {
+//        this.children().forEach(ProfileEntry::checkLoaded);
+//    }
 
     protected int scrollBarX() {
         return super.scrollBarX() + 15;
@@ -95,27 +95,24 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
                                 minecraft.options.save();
                                 minecraft.levelRenderer.allChanged();
 
-                                ProfilesList.this.checkEntriesLoaded();
-                                button.active = false;
+//                                ProfilesList.this.checkEntriesLoaded();
+//                                button.active = false;
                             })
                     .size(75, 20)
                     .build();
         }
 
-        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            Font fontRenderer = ProfilesList.this.minecraft.font;
-
+        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             int posX = ProfilesList.this.scrollBarX() - this.loadButton.getWidth() - 10;
-            int posY = y - 2;
-            int textY = y + entryHeight / 2;
-
-            guiGraphics.drawString(fontRenderer, this.profileName, x, textY - 9 / 2, -1);
+            int posY = this.getContentY() - 2;
 
             this.editButton.setPosition(posX - this.editButton.getWidth(), posY);
             this.editButton.render(guiGraphics, mouseX, mouseY, tickDelta);
 
             this.loadButton.setPosition(posX, posY);
             this.loadButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+
+            guiGraphics.drawString(ProfilesList.this.minecraft.font, this.profileName, this.getContentX(), this.getContentYMiddle() - 4, -1);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -126,8 +123,8 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
             return ImmutableList.of(this.editButton, this.loadButton);
         }
 
-        protected void checkLoaded() {
-            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
-        }
+//        protected void checkLoaded() {
+//            this.loadButton.active = !Profiles.isProfileLoaded(profileName.getString());
+//        }
     }
 }

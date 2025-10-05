@@ -1,5 +1,8 @@
 package net.trafficlunar.optionsprofiles.gui;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggleList.Entry> {
+public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggleList.OptionEntry> {
     private final String profileName;
     private final ProfileConfiguration profileConfiguration;
 
@@ -78,7 +81,7 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
         return 340;
     }
 
-    public class OptionEntry extends Entry {
+    public class OptionEntry extends ContainerObjectSelectionList.Entry<OptionEntry> {
         private final Component optionKey;
         private final CycleButton<Boolean> toggleButton;
 
@@ -110,17 +113,14 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
             }
         }
 
-        public void render(GuiGraphics guiGraphics, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
-            Font fontRenderer = OptionsToggleList.this.minecraft.font;
-
+        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             int posX = OptionsToggleList.this.scrollBarX() - this.toggleButton.getWidth() - 10;
-            int posY = y - 2;
-            int textY = y + entryHeight / 2;
-
-            guiGraphics.drawString(fontRenderer, this.optionKey, x, textY - 9 / 2, -1);
+            int posY = this.getContentY() - 2;
 
             this.toggleButton.setPosition(posX, posY);
             this.toggleButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+
+            guiGraphics.drawString(OptionsToggleList.this.minecraft.font, this.optionKey, this.getContentX(), this.getContentYMiddle() - 4, -1);
         }
 
         public List<? extends GuiEventListener> children() {
@@ -129,11 +129,6 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
 
         public List<? extends NarratableEntry> narratables() {
             return ImmutableList.of(this.toggleButton);
-        }
-    }
-
-    public abstract static class Entry extends ContainerObjectSelectionList.Entry<OptionsToggleList.Entry> {
-        public Entry() {
         }
     }
 }
