@@ -10,6 +10,7 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -25,18 +26,37 @@ import java.util.stream.Stream;
 public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggleList.Entry> {
     private final String profileName;
     private final ProfileConfiguration profileConfiguration;
+    private final EditBox searchBox;
+    private final List<OptionEntry> allEntries = new ArrayList<>();
 
-    public OptionsToggleList(OptionsToggleScreen optionsToggleScreen, Minecraft minecraft, String profileName, ProfileConfiguration profileConfiguration) {
+    public OptionsToggleList(OptionsToggleScreen optionsToggleScreen, Minecraft minecraft, String profileName, ProfileConfiguration profileConfiguration, EditBox searchBox) {
         super(minecraft, optionsToggleScreen.width, optionsToggleScreen.layout.getContentHeight(), optionsToggleScreen.layout.getHeaderHeight(), 20);
         this.profileConfiguration = profileConfiguration;
         this.profileName = profileName;
+        this.searchBox = searchBox;
+
+        this.searchBox.setResponder(this::filterEntries);
 
         refreshEntries(false, false);
     }
 
+    private void filterEntries(String searchText) {
+        this.clearEntries();
+
+        if (searchText.isEmpty()) {
+            allEntries.forEach(this::addEntry);
+            return;
+        }
+
+        String filter = searchText.toLowerCase();
+        allEntries.stream()
+                .filter(entry -> entry.key.toLowerCase().contains(filter))
+                .forEach(this::addEntry);
+    }
+
     // If overriding boolean is set to true then this function will set every option in the list to overrideToggle (false or true)
     public void refreshEntries(boolean overriding, boolean overrideToggle) {
-        this.clearEntries();
+        allEntries.clear();
 
         Path profile = Profiles.PROFILES_DIRECTORY.resolve(profileName);
         Path optionsFile = profile.resolve("options.txt");
@@ -60,14 +80,16 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
                     }
 
                     // Add entry with option key and value and if the key is in the profile configuration
-                    this.addEntry(new OptionEntry(option[0], option[1], profileConfiguration.getOptionsToLoad().contains(option[0])));
+                    allEntries.add(new OptionEntry(option[0], option[1], profileConfiguration.getOptionsToLoad().contains(option[0])));
                 } else {
-                    this.addEntry(new OptionEntry(option[0], "", profileConfiguration.getOptionsToLoad().contains(option[0])));
+                    allEntries.add(new OptionEntry(option[0], "", profileConfiguration.getOptionsToLoad().contains(option[0])));
                 }
             });
         } catch (IOException e) {
             OptionsProfilesMod.LOGGER.error("An error occurred when listing options", e);
         }
+
+        filterEntries(searchBox.getValue());
     }
 
     protected int scrollBarX() {
@@ -79,10 +101,12 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
     }
 
     public class OptionEntry extends Entry {
+        private final String key;
         private final Component optionKey;
         private final CycleButton<Boolean> toggleButton;
 
         OptionEntry(String optionKey, String optionValue, boolean toggled) {
+            this.key = optionKey;
             this.optionKey = Component.literal(optionKey);
 
             this.toggleButton = CycleButton.onOffBuilder(toggled).displayOnlyValue().create(0, 0, 44, 20, Component.empty(), (button, boolean_) -> {

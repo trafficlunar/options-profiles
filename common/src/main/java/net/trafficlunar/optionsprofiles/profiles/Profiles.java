@@ -29,8 +29,6 @@ public class Profiles {
     public static final Path IRIS_OPTIONS_FILE = Paths.get("config/iris.properties");
     public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
-    private static final Minecraft minecraft = Minecraft.getInstance();
-
     public static void createProfile() {
         String profileName = "Profile 1";
         Path profile = PROFILES_DIRECTORY.resolve(profileName);
@@ -269,6 +267,7 @@ public class Profiles {
         }
 
         // Reload Minecraft options
+        Minecraft minecraft = Minecraft.getInstance();
         minecraft.options.load();
 
         if (ProfileConfiguration.get(profileName).getOptionsToLoad().contains("resourcePacks")) {
