@@ -18,6 +18,7 @@ public class EditProfileScreen extends Screen {
     private final Component profileName;
     private final ProfileConfiguration profileConfiguration;
     private EditBox profileNameEdit;
+    private EditBox serversEdit;
 
     public EditProfileScreen(ProfilesScreen profilesScreen, Component profileName) {
         super(Component.literal(Component.translatable("gui.optionsprofiles.editing-profile-title").getString() + profileName.getString()));
@@ -33,11 +34,19 @@ public class EditProfileScreen extends Screen {
         this.profileNameEdit = new EditBox(this.font, this.width / 2 - 102, 116, 204, 20, Component.empty());
         this.profileNameEdit.setValue(profileName.getString());
 
+        this.serversEdit = new EditBox(this.font, this.width / 2 - 102, 137, 204, 20, Component.empty());
+        this.serversEdit.setValue(this.profileConfiguration.getServers());
+        this.serversEdit.setHint(Component.translatable("gui.optionsprofiles.servers-hint").withStyle(ChatFormatting.GRAY));
+        this.serversEdit.setTooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.servers.tooltip")));
+
         LinearLayout linearLayoutContent = this.layout.addToContents(LinearLayout.vertical().spacing(12), LayoutSettings::alignHorizontallyCenter);
 
-        LinearLayout linearLayoutEditBox = linearLayoutContent.addChild(LinearLayout.vertical().spacing(6), LayoutSettings::alignHorizontallyCenter);
+        LinearLayout linearLayoutEditBox = linearLayoutContent.addChild(LinearLayout.vertical().spacing(3), LayoutSettings::alignHorizontallyCenter);
         linearLayoutEditBox.addChild(new StringWidget(Component.translatable("gui.optionsprofiles.profile-name-text"), this.font), LayoutSettings::alignHorizontallyCenter);
         linearLayoutEditBox.addChild(this.profileNameEdit);
+        linearLayoutEditBox.addChild(LinearLayout.vertical());  // add an extra spacing above edit box
+        linearLayoutEditBox.addChild(new StringWidget(Component.translatable("gui.optionsprofiles.servers-text"), this.font), LayoutSettings::alignHorizontallyCenter);
+        linearLayoutEditBox.addChild(this.serversEdit);
 
         LinearLayout linearLayoutButtons = linearLayoutContent.addChild(LinearLayout.vertical().spacing(1), LayoutSettings::alignHorizontallyCenter);
         linearLayoutButtons.addChild(
@@ -128,8 +137,10 @@ public class EditProfileScreen extends Screen {
     }
 
     public void onClose(boolean deleted) {
-        if (!deleted)
+        if (!deleted) {
+            this.profileConfiguration.setServers(this.serversEdit.getValue());
             this.profileConfiguration.save();
+        }
         this.minecraft.setScreen(this.profilesScreen);
         this.profilesScreen.profilesList.refreshEntries();
     }

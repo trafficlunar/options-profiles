@@ -14,8 +14,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -28,35 +29,7 @@ public class Profiles {
     public static final Path IRIS_OPTIONS_FILE = Paths.get("config/iris.properties");
     public static final Path DISTANT_HORIZONS_OPTIONS_FILE = Paths.get("config/DistantHorizons.toml");
 
-    public static void init() {
-        try (Stream<Path> paths = Files.list(PROFILES_DIRECTORY)) {
-            paths.filter(Files::isDirectory)
-                    .forEach(path -> {
-                        String profileName = path.getFileName().toString();
-
-                        // This gets the configuration but also creates the configuration file if it is not there
-                        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
-                        if (profileConfiguration.shouldLoadOnStartup()) {
-                            Minecraft minecraft = Minecraft.getInstance();
-                            loadProfile(profileName);
-
-                            minecraft.options.load();
-
-                            if (ProfileConfiguration.get(profileName).getOptionsToLoad().contains("resourcePacks")) {
-                                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
-                                minecraft.reloadResourcePacks();
-                            }
-
-                            minecraft.options.save();
-                            minecraft.levelRenderer.allChanged();
-
-                            OptionsProfilesMod.LOGGER.info("[Profile '{}']: Loaded on startup", profileName);
-                        }
-                    });
-        } catch (IOException e) {
-            OptionsProfilesMod.LOGGER.error("An error occurred when initializing", e);
-        }
-    }
+    private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static void createProfile() {
         String profileName = "Profile 1";
@@ -145,7 +118,7 @@ public class Profiles {
         }
     }
 
-    public static boolean isProfileLoaded(String profileName) {
+//    public static boolean isProfileLoaded(String profileName) {
         // TODO: rewrite/fix; returns incorrect results
 
 //        Path profile = PROFILES_DIRECTORY.resolve(profileName);
@@ -198,8 +171,8 @@ public class Profiles {
 //            return false;
 //        }
 
-        return false;
-    }
+//        return false;
+//    }
 
     private static void loadOptionFile(String profileName, Path options) {
         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
@@ -294,6 +267,17 @@ public class Profiles {
             loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);                                 // Overwrite / load original Disant Horizons option file
             loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);    // Tell Distant Horizons mod to reload configuration
         }
+
+        // Reload Minecraft options
+        minecraft.options.load();
+
+        if (ProfileConfiguration.get(profileName).getOptionsToLoad().contains("resourcePacks")) {
+            minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
+            minecraft.reloadResourcePacks();
+        }
+
+        minecraft.options.save();
+        minecraft.levelRenderer.allChanged();
     }
 
     public static void renameProfile(String profileName, String newProfileName) {
