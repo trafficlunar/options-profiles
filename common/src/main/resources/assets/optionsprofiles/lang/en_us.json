@@ -6,6 +6,11 @@
 
   "gui.optionsprofiles.editing-profile-title": "Editing Profile: ",
   "gui.optionsprofiles.profile-name-text": "Profile Name",
+
+  "gui.optionsprofiles.servers-text": "Server List",
+  "gui.optionsprofiles.servers-hint": "mc.hypixel.net, play.mccis...",
+  "gui.optionsprofiles.servers.tooltip": "List servers (comma-separated) to load this profile on join. Add 'leave' to load on server leave.",
+
   "gui.optionsprofiles.overwrite-options": "Overwrite",
   "gui.optionsprofiles.overwrite-options.tooltip": "Replaces the profile's options with your current options",
   "gui.optionsprofiles.rename-profile": "Rename",

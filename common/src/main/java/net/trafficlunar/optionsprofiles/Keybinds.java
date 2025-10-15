@@ -44,19 +44,7 @@ public class Keybinds {
 
                         ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
                         if (profileConfiguration.getKeybindIndex() == keybindIndex) {
-                            Minecraft minecraft = Minecraft.getInstance();
-
                             Profiles.loadProfile(profileName);
-                            minecraft.options.load();
-
-                            if (ProfileConfiguration.get(profileName).getOptionsToLoad().contains("resourcePacks")) {
-                                minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
-                                minecraft.reloadResourcePacks();
-                            }
-
-                            minecraft.options.save();
-                            minecraft.levelRenderer.allChanged();
-
                             OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Loaded through keybind", profileName);
                         }
                     });

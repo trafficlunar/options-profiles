@@ -84,16 +84,7 @@ public class ProfilesList extends ContainerObjectSelectionList<ProfilesList.Prof
                             Component.translatable("gui.optionsprofiles.load-profile"),
                             (button) -> {
                                 Profiles.loadProfile(profileName.getString());
-
-                                minecraft.options.load();
-
-                                if (ProfileConfiguration.get(profileName.getString()).getOptionsToLoad().contains("resourcePacks")) {
-                                    minecraft.options.loadSelectedResourcePacks(minecraft.getResourcePackRepository());
-                                    minecraft.reloadResourcePacks();
-                                }
-
-                                minecraft.options.save();
-                                minecraft.levelRenderer.allChanged();
+                                OptionsProfilesMod.LOGGER.warn("[Profile '{}']: Loaded through button", profileName);
 
                                 ProfilesList.this.checkEntriesLoaded();
                                 button.active = false;
