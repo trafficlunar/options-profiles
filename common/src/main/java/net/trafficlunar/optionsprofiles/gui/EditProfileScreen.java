@@ -35,6 +35,7 @@ public class EditProfileScreen extends Screen {
         this.profileNameEdit.setValue(profileName.getString());
 
         this.serversEdit = new EditBox(this.font, this.width / 2 - 102, 137, 204, 20, Component.empty());
+        this.serversEdit.setMaxLength(128);
         this.serversEdit.setValue(this.profileConfiguration.getServers());
         this.serversEdit.setHint(Component.translatable("gui.optionsprofiles.servers-hint").withStyle(ChatFormatting.GRAY));
         this.serversEdit.setTooltip(Tooltip.create(Component.translatable("gui.optionsprofiles.servers.tooltip")));
