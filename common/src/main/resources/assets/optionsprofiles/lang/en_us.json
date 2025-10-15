@@ -19,6 +19,7 @@
   "gui.optionsprofiles.load-on-startup": "Load on startup",
 
   "gui.optionsprofiles.options-toggle": "Select options to toggle",
+  "gui.optionsprofiles.options-search-hint": "Search options...",
   "gui.optionsprofiles.options-toggle.tooltip": "Select the options you want to load in this profile",
   "gui.optionsprofiles.all-on": "All ON",
   "gui.optionsprofiles.all-off": "All OFF",
