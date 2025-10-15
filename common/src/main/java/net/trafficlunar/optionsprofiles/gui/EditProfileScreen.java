@@ -64,18 +64,6 @@ public class EditProfileScreen extends Screen {
         );
         linearLayoutButtons.addChild(
                 Button.builder(
-                                Component.translatable("gui.optionsprofiles.rename-profile"),
-                                (button) -> {
-                                    Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
-                                    this.minecraft.setScreen(new EditProfileScreen(profilesScreen, Component.literal(this.profileNameEdit.getValue())));
-                                })
-                        .size(150, 20)
-                        .pos(this.width / 2 - 75, 166)
-                        .build(),
-                LayoutSettings::alignHorizontallyCenter
-        );
-        linearLayoutButtons.addChild(
-                Button.builder(
                                 Component.translatable("gui.optionsprofiles.options-toggle").append("..."),
                                 (button) -> this.minecraft.setScreen(new OptionsToggleScreen(this, profileName, profileConfiguration)))
                         .size(150, 20)
@@ -140,6 +128,8 @@ public class EditProfileScreen extends Screen {
         if (!deleted) {
             this.profileConfiguration.setServers(this.serversEdit.getValue());
             this.profileConfiguration.save();
+
+            Profiles.renameProfile(profileName.getString(), this.profileNameEdit.getValue());
         }
         this.minecraft.setScreen(this.profilesScreen);
         this.profilesScreen.profilesList.refreshEntries();
