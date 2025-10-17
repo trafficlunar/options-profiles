@@ -1,13 +1,14 @@
 package net.trafficlunar.optionsprofiles.profiles.loaders;
 
-import me.flashyreese.mods.sodiumextra.client.gui.FogTypeConfig;
-import net.minecraft.world.level.material.FogType;
-import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.flashyreese.mods.sodiumextra.client.SodiumExtraClientMod;
+import me.flashyreese.mods.sodiumextra.client.gui.FogTypeConfig;
 import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraGameOptions;
+import me.flashyreese.mods.sodiumextra.common.util.ResourceLocationSerializer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.FogType;
+import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class SodiumExtraLoader {
     public static void load(Path file) {
         try (FileReader reader = new FileReader(file.toFile())) {
-            Gson gson = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(ResourceLocation.class, new ResourceLocationSerializer()).create();
             Configuration configuration = gson.fromJson(reader, Configuration.class);
 
             apply(configuration);
@@ -71,7 +72,6 @@ public class SodiumExtraLoader {
         SodiumExtraClientMod.options().extraSettings.reduceResolutionOnMac = configuration.extra_settings.reduce_resolution_on_mac;
         SodiumExtraClientMod.options().extraSettings.useAdaptiveSync = configuration.extra_settings.use_adaptive_sync;
         SodiumExtraClientMod.options().extraSettings.cloudHeight = configuration.extra_settings.cloud_height;
-        SodiumExtraClientMod.options().extraSettings.cloudDistance = configuration.extra_settings.cloud_distance;
         SodiumExtraClientMod.options().extraSettings.toasts = configuration.extra_settings.toasts;
         SodiumExtraClientMod.options().extraSettings.advancementToast = configuration.extra_settings.advancement_toast;
         SodiumExtraClientMod.options().extraSettings.recipeToast = configuration.extra_settings.recipe_toast;
@@ -144,7 +144,6 @@ public class SodiumExtraLoader {
             public boolean reduce_resolution_on_mac;
             public boolean use_adaptive_sync;
             public int cloud_height;
-            public int cloud_distance;
             public boolean toasts;
             public boolean advancement_toast;
             public boolean recipe_toast;

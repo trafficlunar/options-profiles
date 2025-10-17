@@ -1,5 +1,7 @@
 package net.trafficlunar.optionsprofiles.profiles.loaders;
 
+import net.caffeinemc.mods.sodium.client.render.chunk.DeferMode;
+import net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.QuadSplittingMode;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,8 +25,8 @@ public class SodiumLoader {
     }
 
     private static void apply(Configuration configuration) {
-        SodiumClientMod.options().quality.weatherQuality = SodiumGameOptions.GraphicsQuality.valueOf(configuration.quality.weather_quality);
-        SodiumClientMod.options().quality.leavesQuality = SodiumGameOptions.GraphicsQuality.valueOf(configuration.quality.leaves_quality);
+        SodiumClientMod.options().quality.weatherQuality = SodiumGameOptions.WeatherQuality.valueOf(configuration.quality.weather_quality);
+        SodiumClientMod.options().quality.leavesQuality = SodiumGameOptions.LeavesQuality.valueOf(configuration.quality.leaves_quality);
         SodiumClientMod.options().quality.enableVignette = configuration.quality.enable_vignette;
 
         SodiumClientMod.options().advanced.enableMemoryTracing = configuration.advanced.enable_memory_tracing;
@@ -32,15 +34,18 @@ public class SodiumLoader {
         SodiumClientMod.options().advanced.cpuRenderAheadLimit = configuration.advanced.cpu_render_ahead_limit;
 
         SodiumClientMod.options().performance.chunkBuilderThreads = configuration.performance.chunk_builder_threads;
-        SodiumClientMod.options().performance.alwaysDeferChunkUpdates = configuration.performance.always_defer_chunk_updates_v2;
+        SodiumClientMod.options().performance.chunkBuildDeferMode = configuration.performance.chunk_build_defer_mode;
         SodiumClientMod.options().performance.animateOnlyVisibleTextures = configuration.performance.animate_only_visible_textures;
         SodiumClientMod.options().performance.useEntityCulling = configuration.performance.use_entity_culling;
         SodiumClientMod.options().performance.useFogOcclusion = configuration.performance.use_fog_occlusion;
         SodiumClientMod.options().performance.useBlockFaceCulling = configuration.performance.use_block_face_culling;
         SodiumClientMod.options().performance.useNoErrorGLContext = configuration.performance.use_no_error_g_l_context;
+        SodiumClientMod.options().performance.quadSplittingMode = configuration.performance.quad_splitting_mode;
 
         SodiumClientMod.options().notifications.hasClearedDonationButton = configuration.notifications.has_cleared_donation_button;
         SodiumClientMod.options().notifications.hasSeenDonationPrompt = configuration.notifications.has_seen_donation_prompt;
+
+        SodiumClientMod.options().debug.terrainSortingEnabled = configuration.debug.terrain_sorting_enabled;
 
         try {
             SodiumGameOptions.writeToDisk(SodiumClientMod.options());
@@ -54,6 +59,7 @@ public class SodiumLoader {
         public Advanced advanced;
         public Performance performance;
         public Notifications notifications;
+        public Debug debug;
 
         public static class Quality {
             public String weather_quality;
@@ -69,17 +75,22 @@ public class SodiumLoader {
 
         public static class Performance {
             public int chunk_builder_threads;
-            public boolean always_defer_chunk_updates_v2;
+            public DeferMode chunk_build_defer_mode;
             public boolean animate_only_visible_textures;
             public boolean use_entity_culling;
             public boolean use_fog_occlusion;
             public boolean use_block_face_culling;
             public boolean use_no_error_g_l_context;
+            public QuadSplittingMode quad_splitting_mode;
         }
 
         public static class Notifications {
             public boolean has_cleared_donation_button;
             public boolean has_seen_donation_prompt;
+        }
+
+        public static class Debug {
+            public boolean terrain_sorting_enabled;
         }
     }
 }
