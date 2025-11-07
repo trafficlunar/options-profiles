@@ -17,6 +17,7 @@ public class ProfileConfiguration {
     private static String profileName;
 
     private boolean loadOnStartup = false;
+    private String servers = "";
     private int keybindIndex = 0;
     private List<String> optionsToLoad = new ArrayList<>();
 
@@ -78,5 +79,13 @@ public class ProfileConfiguration {
 
     public void setOptionsToLoad(List<String> optionsToLoad) {
         this.optionsToLoad = optionsToLoad;
+    }
+
+    public String getServers() {
+        return servers;
+    }
+
+    public void setServers(String servers) {
+        this.servers = servers;
     }
 }

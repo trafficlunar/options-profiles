@@ -6,6 +6,11 @@
 
   "gui.optionsprofiles.editing-profile-title": "Editing Profile: ",
   "gui.optionsprofiles.profile-name-text": "Profile Name",
+
+  "gui.optionsprofiles.servers-text": "Server List",
+  "gui.optionsprofiles.servers-hint": "mc.hypixel.net, play.mccis...",
+  "gui.optionsprofiles.servers.tooltip": "List servers (comma-separated) to load this profile on join. Add 'leave' to load on server leave.",
+
   "gui.optionsprofiles.overwrite-options": "Overwrite",
   "gui.optionsprofiles.overwrite-options.tooltip": "Replaces the profile's options with your current options",
   "gui.optionsprofiles.rename-profile": "Rename",
@@ -14,6 +19,7 @@
   "gui.optionsprofiles.load-on-startup": "Load on startup",
 
   "gui.optionsprofiles.options-toggle": "Select options to toggle",
+  "gui.optionsprofiles.options-search-hint": "Search options...",
   "gui.optionsprofiles.options-toggle.tooltip": "Select the options you want to load in this profile",
   "gui.optionsprofiles.all-on": "All ON",
   "gui.optionsprofiles.all-off": "All OFF",
@@ -23,7 +29,7 @@
   "gui.optionsprofiles.show-profiles-button": "Show Profiles Button",
   "gui.optionsprofiles.show-profiles-button.tooltip": "Toggle to remove the profiles button in Options. Access profiles through /optionsprofiles.",
 
-  "category.optionsprofiles.keys": "Options Profiles",
+  "key.category.optionsprofiles.keys": "Options Profiles",
   "key.optionsprofiles.profile_1": "Profile 1",
   "key.optionsprofiles.profile_2": "Profile 2",
   "key.optionsprofiles.profile_3": "Profile 3"

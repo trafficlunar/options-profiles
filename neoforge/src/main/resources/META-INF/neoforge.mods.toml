@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[2,)"
+loaderVersion = "[6,)"
 issueTrackerURL = "https://github.com/trafficlunar/options-profiles/issues"
 license = "GNU GPL 3.0"
 
