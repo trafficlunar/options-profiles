@@ -1,9 +1,8 @@
 package net.trafficlunar.optionsprofiles;
 
-import dev.architectury.event.events.client.ClientLifecycleEvent;
-import dev.architectury.event.events.client.ClientPlayerEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.Connection;
+import net.minecraft.world.entity.player.Player;
 import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import org.apache.logging.log4j.LogManager;
@@ -37,38 +36,6 @@ public class OptionsProfilesMod {
 
         // Load mod config
         CONFIG = OptionsProfilesModConfiguration.load();
-
-        // Load profiles marked to load on startup
-        ClientLifecycleEvent.CLIENT_STARTED.register(client -> {
-            try (Stream<Path> paths = Files.list(Profiles.PROFILES_DIRECTORY)) {
-                paths.filter(Files::isDirectory)
-                        .forEach(path -> {
-                            String profileName = path.getFileName().toString();
-
-                            // This gets the configuration but also creates the configuration file if it is not there
-                            ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
-                            if (profileConfiguration.shouldLoadOnStartup()) {
-                                Profiles.loadProfile(profileName);
-                                OptionsProfilesMod.LOGGER.info("[Profile '{}']: Loaded on startup", profileName);
-                            }
-                        });
-            } catch (IOException e) {
-                OptionsProfilesMod.LOGGER.error("An error occurred when initializing", e);
-            }
-        });
-
-        // Load profiles marked to load on server join
-        ClientPlayerEvent.CLIENT_PLAYER_JOIN.register((LocalPlayer player) -> {
-            handleClientPlayerEvent(player, false);
-        });
-
-        // Load profiles marked to load on server leave
-        ClientPlayerEvent.CLIENT_PLAYER_QUIT.register((LocalPlayer player) -> {
-            handleClientPlayerEvent(player, true);
-        });
-
-        Keybinds.init();
-        Commands.init();
     }
 
     public static OptionsProfilesModConfiguration config() {
@@ -79,7 +46,25 @@ public class OptionsProfilesMod {
         }
     }
 
-    private static void handleClientPlayerEvent(LocalPlayer player, boolean isOnLeave) {
+    public static void handleClientLoad() {
+        try (Stream<Path> paths = Files.list(Profiles.PROFILES_DIRECTORY)) {
+            paths.filter(Files::isDirectory)
+                    .forEach(path -> {
+                        String profileName = path.getFileName().toString();
+
+                        // This gets the configuration but also creates the configuration file if it is not there
+                        ProfileConfiguration profileConfiguration = ProfileConfiguration.get(profileName);
+                        if (profileConfiguration.shouldLoadOnStartup()) {
+                            Profiles.loadProfile(profileName);
+                            OptionsProfilesMod.LOGGER.info("[Profile '{}']: Loaded on startup", profileName);
+                        }
+                    });
+        } catch (IOException e) {
+            OptionsProfilesMod.LOGGER.error("An error occurred when initializing", e);
+        }
+    }
+
+    public static void handleClientPlayerEvent(LocalPlayer player, boolean isOnLeave) {
         if (player == null) return;
         Connection connection = player.connection.getConnection();
 

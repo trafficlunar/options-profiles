@@ -1,8 +1,8 @@
 package net.trafficlunar.optionsprofiles.profiles;
 
-import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
+import net.trafficlunar.optionsprofiles.platform.Services;
 import net.trafficlunar.optionsprofiles.profiles.loaders.DistantHorizonsLoader;
 import net.trafficlunar.optionsprofiles.profiles.loaders.IrisLoader;
 import net.trafficlunar.optionsprofiles.profiles.loaders.SodiumExtraLoader;
@@ -88,13 +88,13 @@ public class Profiles {
 
         copyOptionFile(profile, OPTIONS_FILE);
         copyOptionFile(profile, OPTIFINE_OPTIONS_FILE);
-        if (Platform.isModLoaded("sodium"))
+        if (Services.PLATFORM.isModLoaded("sodium"))
             copyOptionFile(profile, SODIUM_OPTIONS_FILE);
-        if (Platform.isModLoaded("sodium-extra"))
+        if (Services.PLATFORM.isModLoaded("sodium-extra"))
             copyOptionFile(profile, SODIUM_EXTRA_OPTIONS_FILE);
-        if (Platform.isModLoaded("iris"))
+        if (Services.PLATFORM.isModLoaded("iris"))
             copyOptionFile(profile, IRIS_OPTIONS_FILE);
-        if (Platform.isModLoaded("distanthorizons"))
+        if (Services.PLATFORM.isModLoaded("distanthorizons"))
             copyOptionFile(profile, DISTANT_HORIZONS_OPTIONS_FILE);
 
         if (!overwriting) {
@@ -255,13 +255,13 @@ public class Profiles {
         loadOptionFile(profileName, OPTIONS_FILE);
         loadOptionFile(profileName, OPTIFINE_OPTIONS_FILE);
 
-        if (Platform.isModLoaded("sodium"))
+        if (Services.PLATFORM.isModLoaded("sodium"))
             loadOptionFile(profileName, SODIUM_OPTIONS_FILE, SodiumLoader::load);
-        if (Platform.isModLoaded("sodium-extra"))
+        if (Services.PLATFORM.isModLoaded("sodium-extra"))
             loadOptionFile(profileName, SODIUM_EXTRA_OPTIONS_FILE, SodiumExtraLoader::load);
-        if (Platform.isModLoaded("iris"))
+        if (Services.PLATFORM.isModLoaded("iris"))
             loadOptionFile(profileName, IRIS_OPTIONS_FILE, IrisLoader::load);
-        if (Platform.isModLoaded("distanthorizons")) {
+        if (Services.PLATFORM.isModLoaded("distanthorizons")) {
             loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE);                                 // Overwrite / load original Disant Horizons option file
             loadOptionFile(profileName, DISTANT_HORIZONS_OPTIONS_FILE, DistantHorizonsLoader::load);    // Tell Distant Horizons mod to reload configuration
         }

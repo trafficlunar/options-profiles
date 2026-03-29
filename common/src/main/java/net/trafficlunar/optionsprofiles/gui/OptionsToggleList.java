@@ -1,16 +1,12 @@
 package net.trafficlunar.optionsprofiles.gui;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsList;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
 import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.components.EditBox;
@@ -137,14 +133,15 @@ public class OptionsToggleList extends ContainerObjectSelectionList<OptionsToggl
             }
         }
 
-        public void renderContent(GuiGraphics guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
+        @Override
+        public void extractContent(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, boolean hovered, float tickDelta) {
             int posX = OptionsToggleList.this.scrollBarX() - this.toggleButton.getWidth() - 10;
             int posY = this.getContentY() - 2;
 
             this.toggleButton.setPosition(posX, posY);
-            this.toggleButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            this.toggleButton.extractRenderState(guiGraphics, mouseX, mouseY, tickDelta);
 
-            guiGraphics.drawString(OptionsToggleList.this.minecraft.font, this.optionKey, this.getContentX(), this.getContentYMiddle() - 4, -1);
+            guiGraphics.centeredText(OptionsToggleList.this.minecraft.font, this.optionKey, this.getContentX(), this.getContentYMiddle() - 4, -1);
         }
 
         public List<? extends GuiEventListener> children() {

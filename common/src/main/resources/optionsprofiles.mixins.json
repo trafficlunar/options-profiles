@@ -1,13 +1,12 @@
 {
   "required": true,
+  "minVersion": "0.8",
   "package": "net.trafficlunar.optionsprofiles.mixin",
   "compatibilityLevel": "JAVA_17",
-  "minVersion": "0.8",
   "client": [
     "MixinOptionsScreen"
   ],
-  "mixins": [
-  ],
+  "mixins": [],
   "injectors": {
     "defaultRequire": 1
   }

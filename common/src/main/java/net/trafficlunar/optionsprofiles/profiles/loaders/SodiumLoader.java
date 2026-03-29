@@ -1,5 +1,6 @@
 package net.trafficlunar.optionsprofiles.profiles.loaders;
 
+import me.flashyreese.mods.sodiumextra.client.config.SodiumExtraGameOptions;
 import net.caffeinemc.mods.sodium.client.render.chunk.DeferMode;
 import net.caffeinemc.mods.sodium.client.render.chunk.translucent_sorting.QuadSplittingMode;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
@@ -25,6 +26,7 @@ public class SodiumLoader {
     }
 
     private static void apply(Configuration configuration) {
+        SodiumExtraGameOptions
         SodiumClientMod.options().quality.weatherQuality = SodiumGameOptions.WeatherQuality.valueOf(configuration.quality.weather_quality);
         SodiumClientMod.options().quality.leavesQuality = SodiumGameOptions.LeavesQuality.valueOf(configuration.quality.leaves_quality);
         SodiumClientMod.options().quality.enableVignette = configuration.quality.enable_vignette;

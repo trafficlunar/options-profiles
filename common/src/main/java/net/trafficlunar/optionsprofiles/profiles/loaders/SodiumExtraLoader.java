@@ -6,6 +6,7 @@ import me.flashyreese.mods.sodiumextra.client.SodiumExtraClientMod;
 import me.flashyreese.mods.sodiumextra.client.gui.FogTypeConfig;
 import me.flashyreese.mods.sodiumextra.client.gui.SodiumExtraGameOptions;
 import me.flashyreese.mods.sodiumextra.common.util.ResourceLocationSerializer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FogType;
 import net.trafficlunar.optionsprofiles.OptionsProfilesMod;
@@ -19,7 +20,7 @@ import java.util.Map;
 public class SodiumExtraLoader {
     public static void load(Path file) {
         try (FileReader reader = new FileReader(file.toFile())) {
-            Gson gson = new GsonBuilder().registerTypeAdapter(ResourceLocation.class, new ResourceLocationSerializer()).create();
+            Gson gson = new GsonBuilder().registerTypeAdapter(Identifier.class, new IdentifierSerializer()).create();
             Configuration configuration = gson.fromJson(reader, Configuration.class);
 
             apply(configuration);
