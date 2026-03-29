@@ -1,38 +1,29 @@
 modLoader = "javafml"
-loaderVersion = "[10,)"
+loaderVersion = "${neoforge_loader_version_range}"
 issueTrackerURL = "https://github.com/trafficlunar/options-profiles/issues"
 license = "GNU GPL 3.0"
 
 [[mods]]
-modId = "optionsprofiles"
-version = "${version}"
-displayName = "Options Profiles"
-authors = "trafficlunar"
-description = '''
-Load and save your options from in-game.
-'''
-logoFile = "icon.png"
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+authors = "${mod_author}"
+description = '''${mod_description}'''
+logoFile = "${mod_id}.png"
 
-[[dependencies.optionsprofiles]]
+[[dependencies.${mod_id}]]
 modId = "neoforge"
 type = "required"
-versionRange = "[21.9.0-beta,)"
+versionRange = "[${neoforge_version},)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.optionsprofiles]]
+[[dependencies.${mod_id}]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "${minecraft_version_range}"
 ordering = "NONE"
-side = "BOTH"
-
-[[dependencies.optionsprofiles]]
-modId = "architectury"
-type = "required"
-versionRange = "[18.0.3,)"
-ordering = "AFTER"
 side = "BOTH"
 
 [[mixins]]
-config = "optionsprofiles.mixins.json"
+config = "${mod_id}.mixins.json"

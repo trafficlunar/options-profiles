@@ -1,24 +1,22 @@
 package net.trafficlunar.optionsprofiles;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.registry.client.keymappings.KeyMappingRegistry;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.trafficlunar.optionsprofiles.profiles.ProfileConfiguration;
 import net.trafficlunar.optionsprofiles.profiles.Profiles;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 public class Keybinds {
     private static final KeyMapping[] PROFILE_KEYMAPPINGS = new KeyMapping[3];
 
-    public static void init() {
-        KeyMapping.Category category = KeyMapping.Category.register(ResourceLocation.fromNamespaceAndPath(OptionsProfilesMod.MOD_ID, "keys"));
+    public static void registerKeybinds(Consumer<KeyMapping> consumer) {
+        KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath(OptionsProfilesMod.MOD_ID, "keys"));
 
         for (int i = 0; i < PROFILE_KEYMAPPINGS.length; i++) {
             PROFILE_KEYMAPPINGS[i] = new KeyMapping(
@@ -27,16 +25,16 @@ public class Keybinds {
                     -1,
                     category
             );
-            KeyMappingRegistry.register(PROFILE_KEYMAPPINGS[i]);
+            consumer.accept(PROFILE_KEYMAPPINGS[i]);
         }
+    }
 
-        ClientTickEvent.CLIENT_POST.register(minecraft -> {
-            for (int i = 0; i < PROFILE_KEYMAPPINGS.length; i++) {
-                while (PROFILE_KEYMAPPINGS[i].consumeClick()) {
-                    loadProfilesByKeybind(i + 1);
-                }
+    public static void tick() {
+        for (int i = 0; i < PROFILE_KEYMAPPINGS.length; i++) {
+            while (PROFILE_KEYMAPPINGS[i].consumeClick()) {
+                loadProfilesByKeybind(i + 1);
             }
-        });
+        }
     }
 
     private static void loadProfilesByKeybind(int keybindIndex) {

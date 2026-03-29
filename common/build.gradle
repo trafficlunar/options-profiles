@@ -1,34 +1,62 @@
-architectury {
-    common rootProject.enabled_platforms.split(',')
+plugins {
+    id 'multiloader-common'
+    id 'net.neoforged.moddev'
 }
 
-repositories {
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
-            }
-        }
-        filter {
-            includeGroup "maven.modrinth"
-        }
+neoForge {
+    neoFormVersion = neo_form_version
+    // Automatically enable AccessTransformers if the file exists
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.from(at.absolutePath)
     }
 }
 
 dependencies {
-    // We depend on Fabric Loader here to use the Fabric @Environment annotations,
-    // which get remapped to the correct annotations on each platform.
-    // Do NOT use other classes from Fabric Loader.
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-
-    // Architectury API
-    modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+    // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
+    compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
+    annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
 
     // Mod implementations
-    modImplementation "maven.modrinth:sodium:mc1.21.10-0.7.2-fabric"            // Sodium
-    modImplementation "maven.modrinth:sodium-extra:mc1.21.9-0.7.0+fabric"       // Sodium Extra
-    modImplementation "maven.modrinth:iris:1.9.6+1.21.10-fabric"                // Iris
-    modImplementation "maven.modrinth:distanthorizons:2.3.6-b-1.21.10"          // Distant Horizons
-    modImplementation "maven.modrinth:controlify:2.4.2-fabric,1.21.9"           // Controlify
+    implementation "maven.modrinth:sodium:mc26.1-0.8.7-fabric"             // Sodium
+    implementation "maven.modrinth:sodium-extra:mc26.1-0.8.5+fabric"       // Sodium Extra
+    implementation "maven.modrinth:iris:1.10.8+26.1-fabric"                // Iris
+    implementation "maven.modrinth:distanthorizons:2.4.5-b-1.21.11"        // Distant Horizons
+    implementation "maven.modrinth:controlify:3.0.0-beta.3"                // Controlify
+}
+
+configurations {
+    commonJava {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+    commonResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+artifacts {
+    commonJava sourceSets.main.java.sourceDirectories.singleFile
+    commonResources sourceSets.main.resources.sourceDirectories.singleFile
+}
+
+// Implement mcgradleconventions loader attribute
+def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
+['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
+    configurations.named("$variant") {
+        attributes {
+            attribute(loaderAttribute, 'common')
+        }
+    }
+}
+sourceSets.configureEach {
+    [it.compileClasspathConfigurationName, it.runtimeClasspathConfigurationName].each { variant->
+        configurations.named("$variant") {
+            attributes {
+                attribute(loaderAttribute, 'common')
+            }
+        }
+    }
 }
