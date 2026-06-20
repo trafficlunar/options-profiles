@@ -47,8 +47,10 @@ public class SodiumExtraLoader {
         SodiumExtraClientMod.options().detailSettings.biomeColors = configuration.detail_settings.biome_colors;
         SodiumExtraClientMod.options().detailSettings.skyColors = configuration.detail_settings.sky_colors;
 
-        SodiumExtraClientMod.options().renderSettings.multiDimensionFogControl = configuration.render_settings.global_fog;
+        SodiumExtraClientMod.options().renderSettings.fogDistance = configuration.render_settings.fog_distance;
         SodiumExtraClientMod.options().renderSettings.fogStart = configuration.render_settings.fog_start;
+        SodiumExtraClientMod.options().renderSettings.multiDimensionFogControl = configuration.render_settings.multi_dimension_fog_control;
+        SodiumExtraClientMod.options().renderSettings.dimensionFogDistanceMap = configuration.render_settings.dimensionFogDistance;
         SodiumExtraClientMod.options().renderSettings.lightUpdates = configuration.render_settings.light_updates;
         SodiumExtraClientMod.options().renderSettings.itemFrame = configuration.render_settings.item_frame;
         SodiumExtraClientMod.options().renderSettings.armorStand = configuration.render_settings.armor_stand;
@@ -118,8 +120,10 @@ public class SodiumExtraLoader {
         }
 
         public static class RenderSettings {
-            public boolean global_fog;
+            public int fog_distance;
             public int fog_start;
+            public boolean multi_dimension_fog_control;
+            public Map<ResourceLocation, Integer> dimensionFogDistance;
             public boolean light_updates;
             public boolean item_frame;
             public boolean armor_stand;
