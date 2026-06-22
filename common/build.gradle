@@ -26,8 +26,8 @@ dependencies {
     modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
 
     // Mod implementations
-    modImplementation "maven.modrinth:sodium:mc1.21.1-0.6.13-fabric"            // Sodium
-    modImplementation "maven.modrinth:sodium-extra:mc1.21.6-0.6.6+fabric"       // Sodium Extra
-    modImplementation "maven.modrinth:iris:1.8.8+1.21.1-fabric"                 // Iris
+    modImplementation "maven.modrinth:sodium:mc1.21.1-0.8.12-beta.1-fabric"     // Sodium
+    modImplementation "maven.modrinth:sodium-extra:mc1.21.1-0.8.7+fabric"       // Sodium Extra
+    modImplementation "maven.modrinth:iris:1.8.14-beta.1+1.21.1-fabric"         // Iris
     modImplementation "maven.modrinth:distanthorizons:2.3.4-b-1.21.1"           // Distant Horizons
 }
